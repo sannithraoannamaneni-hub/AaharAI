@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AaharAI - Indian Diet & Fitness Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header>
+        <h1>🇮🇳 AaharAI 🤖</h1>
+        <p>Indian Diet & Fitness Assistant</p>
+    </header>
+
+
+    <!-- PERSONAL PROFILE -->
+    <section class="profile-card">
+
+        <h2>👤 Personalize Your Guidance</h2>
+
+        <div class="profile-grid">
+
+            <!-- AGE -->
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="e.g. 21"
+                    min="13"
+                    max="100"
+                >
+            </div>
+
+
+            <!-- HEIGHT -->
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input
+                    type="number"
+                    id="height"
+                    placeholder="e.g. 175"
+                    min="100"
+                    max="250"
+                >
+            </div>
+
+
+            <!-- WEIGHT -->
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input
+                    type="number"
+                    id="weight"
+                    placeholder="e.g. 70"
+                    min="30"
+                    max="300"
+                >
+            </div>
+
+
+            <!-- GOAL -->
+            <div class="form-group">
+                <label for="goal">Goal</label>
+
+                <select id="goal">
+                    <option value="general health">General Health</option>
+                    <option value="weight loss">Weight Loss</option>
+                    <option value="muscle gain">Muscle Gain</option>
+                    <option value="fitness">Improve Fitness</option>
+                </select>
+            </div>
+
+
+            <!-- DIET -->
+            <div class="form-group">
+                <label for="diet">Diet Preference</label>
+
+                <select id="diet">
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="non-vegetarian">Non-Vegetarian</option>
+                    <option value="eggetarian">Eggetarian</option>
+                    <option value="vegan">Vegan</option>
+                </select>
+            </div>
+
+
+            <!-- ACTIVITY -->
+            <div class="form-group">
+                <label for="activity">Activity Level</label>
+
+                <select id="activity">
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+
+            <!-- REGION -->
+            <div class="form-group">
+                <label for="region">Indian Food Preference</label>
+
+                <select id="region">
+                    <option value="South Indian">South Indian</option>
+                    <option value="North Indian">North Indian</option>
+                    <option value="West Indian">West Indian</option>
+                    <option value="East Indian">East Indian</option>
+                    <option value="Any Indian cuisine">
+                        Any Indian Cuisine
+                    </option>
+                </select>
+            </div>
+
+
+            <!-- FOOD RESTRICTIONS -->
+            <div class="form-group">
+                <label for="food-limitations">
+                    Food Preferences / Restrictions
+                </label>
+
+                <input
+                    type="text"
+                    id="food-limitations"
+                    placeholder="e.g. No peanuts, less spicy"
+                >
+            </div>
+
+        </div>
+
+
+        <!-- SAVE PROFILE -->
+        <button
+            type="button"
+            id="save-profile-btn"
+            class="profile-btn"
+        >
+            Save My Profile 💾
+        </button>
+
+
+        <!-- PROFILE STATUS -->
+        <p
+            id="profile-status"
+            class="profile-status"
+        ></p>
+
+
+        <!-- 7 DAY PLAN -->
+        <div class="plan-section">
+
+            <h3>🍱 Personalized 7-Day Plan</h3>
+
+            <p>
+                Generate a personalized Indian diet and fitness plan
+                based on your saved profile.
+            </p>
+
+            <button
+                type="button"
+                id="generate-plan-btn"
+                class="plan-btn"
+            >
+                Generate My 7-Day Plan 🚀
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHAT -->
+    <main class="chat-container">
+
+        <div id="chat-box" class="chat-box">
+
+            <div class="message bot-message">
+
+                <strong>AaharAI:</strong>
+
+                <p>Hello! 👋 I'm AaharAI.</p>
+
+                <p>
+                    I can help you with Indian diet and fitness guidance.
+                </p>
+
+                <p>
+                    Fill in your profile above and tell me about your goal! 🇮🇳
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHAT INPUT -->
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="user-input"
+                placeholder="Ask about your Indian diet or fitness..."
+            >
+
+            <button
+                type="button"
+                id="send-btn"
+            >
+                Send
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- MARKED -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- YOUR JAVASCRIPT -->
+<script src="script.js"></script>
+
+</body>
+<!-- PERSONALIZED 7-DAY PLAN -->
+<div class="plan-section">
+
+    <h3>🍱 Personalized 7-Day Plan</h3>
+
+    <p>
+        Generate a personalized Indian diet and fitness plan
+        based on your saved profile.
+    </p>
+
+    <button
+        type="button"
+        id="generate-plan-btn"
+        class="plan-btn"
+    >
+        Generate My 7-Day Plan 🚀
+    </button>
+
+</div>
+</html>
