@@ -326,13 +326,6 @@ async function generateSevenDayPlan() {
         "Generating Plan... ⏳";
 
 
-    // Show message
-    addMessage(
-        "Please create my personalized 7-day Indian diet and fitness plan.",
-        "user"
-    );
-
-
     try {
 
         const response =
@@ -349,37 +342,80 @@ async function generateSevenDayPlan() {
                     body: JSON.stringify({
 
                         message: `
-Create a detailed personalized 7-day Indian diet and fitness plan.
+Create a complete personalized 7-day Indian diet and fitness plan.
 
-The plan must cover:
-
-Day 1 through Day 7.
+IMPORTANT:
+- You MUST provide all 7 days.
+- Do NOT stop before Day 7.
+- Keep the response concise enough to fit in one response.
+- Follow the user's diet preference strictly.
+- Follow all food restrictions strictly.
+- Never suggest a food that conflicts with the user's diet.
+- For vegetarian users, do NOT suggest meat, chicken, fish, or eggs.
+- For vegan users, do NOT suggest meat, chicken, fish, eggs, milk, curd, paneer, or other dairy.
+- For eggetarian users, eggs are allowed but meat and fish are not allowed.
+- For non-vegetarian users, meat, fish, and eggs may be included.
+- If the user says "no peanuts", do not recommend peanuts or peanut products.
 
 For each day include:
-- Breakfast
-- Mid-morning snack
-- Lunch
-- Evening snack
-- Dinner
-- Water/hydration suggestion
-- Simple exercise/workout
 
-Use Indian foods and respect the user's diet preference, region preference, activity level, goal, and food restrictions.
+1. Breakfast
+2. Mid-morning snack
+3. Lunch
+4. Evening snack
+5. Dinner
+6. Hydration
+7. Exercise
 
-Keep portions practical and suitable for the user's profile.
-
-User profile:
+User Profile:
 
 Age: ${userProfile.age}
 Height: ${userProfile.height} cm
 Weight: ${userProfile.weight} kg
 Goal: ${userProfile.goal}
-Diet: ${userProfile.diet}
-Activity level: ${userProfile.activity}
-Indian food preference: ${userProfile.region}
-Food restrictions/preferences: ${userProfile.limitations || "None specified"}
+Diet Preference: ${userProfile.diet}
+Activity Level: ${userProfile.activity}
+Indian Food Preference: ${userProfile.region}
+Food Restrictions: ${userProfile.limitations || "None"}
 
-Format the response clearly with headings for Day 1 through Day 7.
+Format the response using Markdown.
+
+Start with:
+
+# 🍱 Your Personalized 7-Day Plan
+
+Then provide:
+
+## Day 1
+...
+
+## Day 2
+...
+
+## Day 3
+...
+
+## Day 4
+...
+
+## Day 5
+...
+
+## Day 6
+...
+
+## Day 7
+...
+
+Finish with:
+
+## 🌟 Weekly Tips
+
+Provide 3 to 5 short practical tips.
+
+IMPORTANT:
+The response MUST contain Day 1, Day 2, Day 3, Day 4, Day 5, Day 6, and Day 7.
+Do not stop early.
                         `,
 
                         profile: userProfile
@@ -408,11 +444,50 @@ Format the response clearly with headings for Day 1 through Day 7.
         }
 
 
-        // Display the generated plan
-        addMessage(
-            data.reply,
-            "bot"
+        if (!data.reply) {
+
+            throw new Error(
+                "The AI returned an empty response."
+            );
+        }
+
+
+        // Remove previous plan
+        const existingPlan =
+            document.getElementById("plan-result");
+
+        if (existingPlan) {
+            existingPlan.remove();
+        }
+
+
+        // Create plan section
+        const planResult =
+            document.createElement("div");
+
+        planResult.id =
+            "plan-result";
+
+        planResult.className =
+            "plan-result";
+
+
+        // Add AI response
+        planResult.innerHTML =
+            formatAIResponse(data.reply);
+
+
+        // Put plan directly below button
+        generatePlanButton.parentElement.appendChild(
+            planResult
         );
+
+
+        // Scroll to plan
+        planResult.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
 
 
     } catch (error) {
@@ -423,9 +498,32 @@ Format the response clearly with headings for Day 1 through Day 7.
         );
 
 
-        addMessage(
-            "Sorry, I couldn't generate your 7-day plan right now. Please make sure the AaharAI backend is running.",
-            "bot"
+        // Show error inside plan section
+        const errorPlan =
+            document.createElement("div");
+
+        errorPlan.id =
+            "plan-result";
+
+        errorPlan.className =
+            "plan-result";
+
+
+        errorPlan.innerHTML = `
+            <h2>⚠️ Unable to Generate Plan</h2>
+            <p>
+                Sorry, I couldn't generate your 7-day plan right now.
+                Please make sure the AaharAI backend is running.
+            </p>
+            <p>
+                <strong>Error:</strong>
+                ${escapeHTML(error.message)}
+            </p>
+        `;
+
+
+        generatePlanButton.parentElement.appendChild(
+            errorPlan
         );
 
     } finally {
@@ -470,4 +568,9 @@ input.addEventListener(
         }
 
     }
+);
+
+
+console.log(
+    "AaharAI script loaded successfully."
 );
